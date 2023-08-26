@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Green API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .button-container button {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .send-message-link {
+            margin-top: 10px;
+        }
+
+        .send-message-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <div class="form-header">
+        <h1>Welcome to Green API</h1>
+    </div>
+    <form id="credentialsForm" method="post" action="{% url 'home_settings' %}">
+        {% csrf_token %}
+        <label for="id_instance">Instance ID:</label>
+        <input type="text" name="id_instance" required>
+        <label for="api_token">API Token:</label>
+        <input type="text" name="api_token" required>
+        <button type="submit" name="action" value="get_settings">Get Settings</button>
+        <button type="submit" name="action" value="get_state">Get State</button>
+        <div class="send-message-link">
+        <a href="{% url 'send_message' %}">Send a Message</a>
+        </div>
+        <div class="send-message-link">
+        <a href="{% url 'send_file_by_url' %}">Send File by Url</a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

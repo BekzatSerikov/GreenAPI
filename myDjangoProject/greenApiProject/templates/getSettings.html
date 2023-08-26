@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .request-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .request-button:hover {
+            background-color: #0056b3;
+        }
+
+        .response {
+            display: none;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        .response.show {
+            display: block;
+        }
+
+        .back-to-home {
+        margin-top: 10px;
+        text-align: center;
+        }
+        .back-to-home a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        }
+
+        .back-to-home a:hover {
+        color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="request">
+            <form id="getStateForm" method="post" action="{% url 'get_settings' %}">
+                {% csrf_token %}
+                <button type="submit" class="request-button" data-response="state">Get Settings</button>
+            </form>
+        </div>
+
+        <div class="response" id="stateResponse">
+            <h2>Get Settings Response</h2>
+            {% for key, value in settings_data.items %}
+            <p><strong>{{ key }}:</strong> {{ value | safe }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="back-to-home">
+            <a href="{% url 'home_settings' %}">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<script>
+        const requestButtons = document.querySelectorAll('.request-button');
+        const stateResponse = document.getElementById('stateResponse');
+
+        requestButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                stateResponse.classList.toggle('show');
+            });
+        });
+
+</script>
+</body>
+</html>
